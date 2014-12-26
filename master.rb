@@ -1,12 +1,11 @@
 require 'sinatra'
 require 'json'
+#every time will be in ms
 
 get '/new' do
-  new_request.to_s
+  new_request(request.ip).to_s
+  get_frequance(Time.now, Time.now, dt)
 end
-
-
-
 
 #override Time
 class Time
@@ -17,12 +16,21 @@ class Time
 end
 
 
+#get frequnce for period
+def get_frequance(from, to, dt)
+  get_db()
+  nums = @db['requests'].select{ |a| a >= from.to_ms and a <= to.to_ms }
+  return 1.0*dt/nums
+end
+
+
 # return the time between current and previous request 
-def new_request
+def new_request(ip)
   get_db()
   @db['amount'] += 1
   last_t = @db['last_req']
   now_t = Time.now.to_ms
+  @db['requests'] << now_t
   @db['last_req'] = now_t
   save_db()
   now_t-last_t
