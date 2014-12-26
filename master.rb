@@ -2,17 +2,30 @@ require 'sinatra'
 require 'json'
 
 get '/new' do
-  get_db()
-  @db['amount'].to_s
-  increase_amount()
-  @db['amount'].to_s
+  new_request.to_s
 end
 
 
-#private
-def increase_amount
+
+
+#override Time
+class Time
+  #get time in milliseconds
+  def to_ms
+    (self.to_f * 1000.0).to_i
+  end
+end
+
+
+# return the time between current and previous request 
+def new_request
+  get_db()
   @db['amount'] += 1
-  save_db
+  last_t = @db['last_req']
+  now_t = Time.now.to_ms
+  @db['last_req'] = now_t
+  save_db()
+  now_t-last_t
 end
 
 def save_db
