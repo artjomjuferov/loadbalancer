@@ -28,13 +28,4 @@ class Client
     
     res_arr
   end
-  
-  
-  def correct_all?(res_array)
-    # res_array.each do |res|
-    #   return false if res == "505"
-    # end
-    return true
-  end
-  
 end
