@@ -23,9 +23,8 @@ class Client
         res_arr << make_request(url)
       end
     end
-    
-    threads.each { |aThread|  aThread.join }
-    
+    threads.each { |thread|  thread.join }
     res_arr
   end
+
 end
