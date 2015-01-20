@@ -5,8 +5,11 @@ gem 'sinatra-contrib', git: 'https://github.com/sinatra/sinatra-contrib.git'
 
 gem 'rake'
 gem 'json'
+gem 'random-word'
+
 
 group :test do
+  gem 'debugger'
   gem 'faker'
   gem 'capybara'
   gem 'spork', '~> 1.0rc'
