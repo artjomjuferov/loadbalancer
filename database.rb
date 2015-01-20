@@ -1,5 +1,13 @@
 require 'json'
 
+
+class Time
+  #get time in milliseconds
+  def to_ms
+    (self.to_f * 1000.0).to_i
+  end
+end
+
 class Database
   
   def initialize(path_to_json)
@@ -45,11 +53,27 @@ class Database
     fJson.close()
   end
   
+  def add_req(time)
+    load_db()
+    @requests << time.to_ms
+    @amount += 1
+    save_db()
+  end
+  
+  #get frequnce for period
+  def get_frequance(from, to, dt)
+    load_db()
+    nums = @db['requests'].select{ |a| a >= from.to_ms and a <= to.to_ms }
+    return 1.0*dt/nums
+  end
+
+  
   def amount
     load_db()
     @amount
   end
 
+  # return Time Time.at(1056030443784/1000.0).
   def requests
     load_db()
     @requests

@@ -7,7 +7,9 @@ gem 'rake'
 gem 'json'
 gem 'random-word'
 
+
 group :test do
+  gem 'debugger'
   gem 'faker'
   gem 'capybara'
   gem 'spork', '~> 1.0rc'
