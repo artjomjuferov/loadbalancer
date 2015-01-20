@@ -28,6 +28,13 @@ class Database
     path
   end
   
+  def clean_db()
+    load_db()
+    @amount = 0
+    @requests = 0
+    save_db()
+  end
+  
   def load_db()
     begin
       fJson = File.open(@path,"r")
@@ -53,9 +60,10 @@ class Database
     fJson.close()
   end
   
-  def add_req(time)
+  def add_req
+    t = Time.now.to_ms
     load_db()
-    @requests << time.to_ms
+    @requests << t
     @amount += 1
     save_db()
   end

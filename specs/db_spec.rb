@@ -32,7 +32,7 @@ describe "Database" do
   end
   
   it "should return correct time" do
-    subject.add_req(Time.now)
+    subject.add_req
     expect(subject.requests[0]).to be_an_instance_of(1.class)
   end
 
